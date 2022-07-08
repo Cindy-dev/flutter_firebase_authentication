@@ -51,5 +51,4 @@ class LoginVM extends ChangeNotifier {
     await auth.signInWithCredential(credential);
     notifyListeners();
   }
-
 }

@@ -5,6 +5,11 @@ A new Flutter project.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+<p align="center">
+  <img src="asset\images\login_screen-removebg-preview.png" width="350" title="Login screen">
+  <img src="asset\images\signup_auth-removebg-preview.png" width="350" alt="Signup Screen">
+</p>
+
 
 A few resources to get you started if this is your first Flutter project:
 
