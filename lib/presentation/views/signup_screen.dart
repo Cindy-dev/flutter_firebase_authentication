@@ -19,6 +19,8 @@ class SignUpScreen extends StatefulHookConsumerWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
+
+  GlobalKey<FormState> _signupformKey = GlobalKey<FormState>();
   @override
   Widget build(
     BuildContext context,
@@ -30,7 +32,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Form(
-          key: SignUpVM.formKey,
+          key: _signupformKey,
           child: Stack(
             children: [
               Positioned(
@@ -114,8 +116,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       return ('password is too short');
                     }
                   }),
-                  InkWell(
-                    onTap: (){
+                  GestureDetector(
+                    onTap: () {
                       readViewModel.signUP(context);
                     },
                     child: Container(
@@ -128,7 +130,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         color: const Color.fromRGBO(48, 91, 241, 0.79),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: const Text('Signup'),
+                      child: const Text(
+                        'Signup',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ),
                   const Spacer(flex: 2),

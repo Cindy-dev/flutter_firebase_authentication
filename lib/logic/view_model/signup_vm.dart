@@ -12,12 +12,10 @@ class SignUpVM extends ChangeNotifier {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
-  static final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
 
-  Future<void> signUP(
-       BuildContext context) async {
+  Future<void> signUP(BuildContext context) async {
     try {
       final newUser = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(

@@ -17,6 +17,7 @@ class LoginScreen extends StatefulHookConsumerWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
+  GlobalKey<FormState> _loginformKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(loginVM);
@@ -26,6 +27,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Form(
+          key: _loginformKey,
           child: Stack(
             children: [
               Positioned(
@@ -55,7 +57,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   const Spacer(),
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 68),
+                    padding: EdgeInsets.only(bottom: 68, top: 50),
                     child: Text(
                       'Login',
                       style: TextStyle(
@@ -86,22 +88,88 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       return ('password is too short');
                     }
                   }),
-                  InkWell(
-                    onTap: ()=>readViewModel.signIn(context),
+                  GestureDetector(
+                    onTap: () => readViewModel.signIn(context),
                     child: Container(
                       alignment: Alignment.center,
                       height: context.height() * .07,
                       margin: const EdgeInsets.only(
-                          bottom: 150, left: 52, right: 52, top: 68),
+                          bottom: 19, left: 52, right: 52, top: 68),
                       width: context.width() * 3,
                       decoration: BoxDecoration(
                         color: const Color.fromRGBO(48, 91, 241, 0.79),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: const Text('Login'),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ),
-                  const Spacer(flex: 2),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const Padding(
+                      padding: EdgeInsets.only(bottom: 150),
+                      child: Text(
+                        'Forgot your password ?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Expanded(
+                          child: Divider(
+                            color: Color.fromRGBO(0, 0, 0, 0.25),
+                            height: 2,
+                            indent: 20,
+                            endIndent: 20,
+                            thickness: 2,
+                          ),
+                        ),
+                        Text(
+                          'connect with',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w700),
+                        ),
+                        Expanded(
+                            child: Divider(
+                          color: Color.fromRGBO(0, 0, 0, 0.25),
+                          height: 2,
+                          indent: 20,
+                          endIndent: 20,
+                          thickness: 2,
+                        )),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: ()=> readViewModel.googleLogin(),
+                    child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(bottom: 29),
+                        height: context.height() * .06,
+                        width: context.height() * .3,
+                        decoration: BoxDecoration(
+                            color: const Color.fromRGBO(0, 0, 0, 0.25),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text(
+                          'Google',
+                          style: TextStyle(fontSize: 15),
+                        )),
+                  ),
+                  const Spacer(),
                 ],
               ),
             ],

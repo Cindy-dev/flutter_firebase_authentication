@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_firebase_authentication/presentation/helper/constants.dart';
 import 'package:flutter_firebase_authentication/presentation/helper/navigators.dart';
 import 'package:flutter_firebase_authentication/presentation/views/home.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginVM extends ChangeNotifier {
@@ -12,9 +13,12 @@ class LoginVM extends ChangeNotifier {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  static final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
+  final googleSignIn = GoogleSignIn();
+
+  GoogleSignInAccount? _user;
+  GoogleSignInAccount get user => _user!;
 
   Future<void> signIn(BuildContext context) async {
     try {
@@ -24,32 +28,28 @@ class LoginVM extends ChangeNotifier {
         navigatePush(context, const HomeScreen());
       }
       //The password is invalid or the user does not have a password.
-    } catch (error) {
+    } on FirebaseException catch (error) {
       print(error);
-      if (error is PlatformException) {
-        if (error.code == 'ERROR_USER_NOT_FOUND') {
-          return showdialog(
-              context: context,
-              text: 'Error',
-              contentText: 'Email does not exist');
-        } else if (error.code == 'The password is invalid or the user does not have a password.') {
-          return showdialog(
-              context: context,
-              text: 'Error',
-              contentText: 'Incorrect email or password');
-        } else if (error.code == 'ERROR_NETWORK_REQUEST_FAILED') {
-          return showdialog(
-              context: context,
-              text: 'Error',
-              contentText: 'Please check your internet connection');
-        }
-       }
-        else {
         return showdialog(
             context: context,
             text: 'Error',
             contentText: error.toString());
-      }
     }
   }
+
+  Future googleLogin() async {
+    final googleUser = await googleSignIn.signIn();
+    if(googleUser == null) return;
+    _user = googleUser;
+
+    final googleAuth = await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    await auth.signInWithCredential(credential);
+    notifyListeners();
+  }
+
 }
