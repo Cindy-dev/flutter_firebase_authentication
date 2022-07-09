@@ -21,7 +21,7 @@ class _ForgetPasswordState extends ConsumerState<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(forgotpassVM);
-    final readviewModel = ref.read(forgotpassVM);
+    final readviewModel = ref.read(forgotpassVM.notifier);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(

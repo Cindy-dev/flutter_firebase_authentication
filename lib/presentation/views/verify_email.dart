@@ -61,7 +61,7 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      final viewModel = ref.watch(verifyEmailVM);
+                      final viewModel = ref.read(verifyEmailVM.notifier);
 
                       viewModel.canResendEmail
                           ? viewModel.sendVerificationEmail(context)
@@ -70,7 +70,8 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                     child: Container(
                       alignment: Alignment.center,
                       height: context.height() * .08,
-                      margin: const EdgeInsets.only(top: 18,left: 20, right: 20),
+                      margin:
+                          const EdgeInsets.only(top: 18, left: 20, right: 20),
                       width: context.width() * 3,
                       decoration: BoxDecoration(
                         color: const Color.fromRGBO(48, 91, 241, 0.79),
@@ -89,7 +90,7 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      final viewModel = ref.watch(loginVM);
+                      final viewModel = ref.read(loginVM.notifier);
 
                       viewModel.signOut(context);
                     },

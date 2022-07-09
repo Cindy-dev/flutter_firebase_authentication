@@ -23,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(loginVM);
-    final readViewModel = ref.read(loginVM);
+    final readViewModel = ref.read(loginVM.notifier);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(

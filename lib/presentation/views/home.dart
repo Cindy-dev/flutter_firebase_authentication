@@ -15,7 +15,8 @@ class HomeScreen extends ConsumerWidget {
           const Spacer(),
           GestureDetector(
             onTap: () {
-              ref.watch(loginVM).signOut(
+              //.notifier obtains the change notifier without listening to it, so we are getting the method with the notifier itself
+              ref.read(loginVM.notifier).signOut(
                     context,
                   );
             },

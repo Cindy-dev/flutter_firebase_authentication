@@ -25,7 +25,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     BuildContext context,
   ) {
     final viewModel = ref.watch(signUpVM);
-    final readViewModel = ref.read(signUpVM);
+    final readViewModel = ref.read(signUpVM.notifier);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
