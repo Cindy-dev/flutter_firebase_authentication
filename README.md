@@ -1,6 +1,7 @@
 # flutter_firebase_authentication
 
 A new Flutter project.
+This Flutter project was built with firebase and implementations like google authentication,sign in,sign out, reset password and verify email was done in thi app
 
 ## Getting Started
 

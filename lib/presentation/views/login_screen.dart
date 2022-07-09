@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_authentication/presentation/helper/constants.dart';
+import 'package:flutter_firebase_authentication/presentation/views/forget_password.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../logic/view_model_providers.dart';
 import '../helper/custom_shape.dart';
 import '../helper/navigators.dart';
 import '../helper/text_form.dart';
+import 'home.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulHookConsumerWidget {
@@ -89,7 +91,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     }
                   }),
                   GestureDetector(
-                    onTap: () => readViewModel.signIn(context),
+                    onTap: () => readViewModel.signIn(context, () {
+                      if (!mounted) return;
+                      navigatePush(context, const HomeScreen());
+                    }),
                     child: Container(
                       alignment: Alignment.center,
                       height: context.height() * .07,
@@ -110,9 +115,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      navigatePush(context, const ForgetPassword());
+                    },
                     child: const Padding(
-                      padding: EdgeInsets.only(bottom: 150),
+                      padding: EdgeInsets.only(bottom: 100),
                       child: Text(
                         'Forgot your password ?',
                         textAlign: TextAlign.center,
@@ -155,7 +162,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: ()=> readViewModel.googleLogin(),
+                    onTap: () => readViewModel.googleLogin(context, () {
+                      if (!mounted) return;
+                      navigatePush(context, const HomeScreen());
+                    }),
                     child: Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(bottom: 29),

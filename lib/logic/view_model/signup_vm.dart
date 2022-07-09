@@ -15,7 +15,8 @@ class SignUpVM extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final fireStore = FirebaseFirestore.instance;
 
-  Future<void> signUP(BuildContext context) async {
+  //this is a method called to create user with email and password
+  Future<void> signUP(BuildContext context, VoidCallback onSuccess) async {
     try {
       final newUser = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -26,11 +27,9 @@ class SignUpVM extends ChangeNotifier {
           'id': newUser.user?.uid,
           'phoneNumber': phoneController.text,
           'email': emailController.text,
-          'password': passwordController.text,
           'fullName': fullNameController.text,
         });
-        print(emailController);
-        navigatePush(context, const LoginScreen());
+        onSuccess.call();
       }
     } catch (error) {
       print(error.toString());

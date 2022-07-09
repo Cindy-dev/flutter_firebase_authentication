@@ -19,7 +19,6 @@ class SignUpScreen extends StatefulHookConsumerWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
-
   GlobalKey<FormState> _signupformKey = GlobalKey<FormState>();
   @override
   Widget build(
@@ -118,7 +117,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   }),
                   GestureDetector(
                     onTap: () {
-                      readViewModel.signUP(context);
+                      readViewModel.signUP(context, (() {
+                        if (!mounted) return;
+                        navigatePush(context, const LoginScreen());
+                      }));
                     },
                     child: Container(
                       alignment: Alignment.center,

@@ -28,11 +28,19 @@ showdialog(
             actions: [
               InkWell(
                 onTap: () => navigatePop(context),
-                child: Text(
+                child: const Text(
                   'okay',
                   style: TextStyle(color: Colors.blue, fontSize: 15),
                 ),
               )
             ],
+          ));
+}
+
+showProgress(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) => const Center(
+            child: CircularProgressIndicator(),
           ));
 }
